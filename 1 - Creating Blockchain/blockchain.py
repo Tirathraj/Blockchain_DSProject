@@ -60,7 +60,7 @@ class Blockchain:
         return self.chain[-1] #-1 gives last index of chain
     
     #Proof of Work: Number/Piece of data that miners have to find
-    #in roder to mine a new block
+    #in order to mine a new block
     #We define a problem.
     #Miners solve that problem (a specific number)
     #Problem must be challenging to find but easy to verify
