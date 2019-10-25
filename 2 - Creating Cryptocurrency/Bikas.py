@@ -7,7 +7,7 @@
         Transactions are then registered in a fraudless and immutable way.
 
 
-Created on Fri Oct 25 03:42:00 2019
+Created on Fri Oct 25 05:13:39 2019
 
 @author: Keshav Ramburn
 
@@ -247,7 +247,7 @@ class Blockchain:
         parsedUrl=urlparse(address)
         
         self.nodes.add(parsedUrl.netloc)
-       
+      
     
     
     '''
@@ -290,7 +290,7 @@ class Blockchain:
         
         
 #----------------------------------------------------------------------------------------------------------
- '''        
+'''        
                                                              #Part 2 - Mining the blocks
 #Start interacting with blockchain
 #Start making requests to mine block/display whole chain
@@ -335,7 +335,7 @@ def mineBlock():
     '''
     Add transaction to the new block to reward miner
     '''
-    blockchain.addTransaction(sender=nodeAddress, receiver='Myself', amount=1)
+    blockchain.addTransaction(sender=nodeAddress, receiver='Bikas', amount= 1)
     
     #returns current block and appends it as well
     currentBlock = blockchain.createBlock(currentProof, previousHash)
@@ -444,4 +444,4 @@ def replaceChain():
 #2. http://127.0.0.1:5000/getBlockchain
     
 '''    
-webApplication.run(host='0.0.0.0', port=5000)
+webApplication.run(host='0.0.0.0', port=5003)
