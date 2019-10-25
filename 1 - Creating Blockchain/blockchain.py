@@ -188,7 +188,6 @@ def mineBlock():
     #And HTTP STATUS CODE FOR SUCCESS  200 OK
     return jsonify(response), 200
 
-
 #4. Getting full Blockchain to display in POSTMAN
 @webApplication.route('/getBlockchain', methods=['GET'])
 def getBlockchain():
