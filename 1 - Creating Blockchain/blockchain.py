@@ -113,10 +113,10 @@ class Blockchain:
         previousBlock=chain[0]
         currentBlockIndex=1
         
-        while blockIndex < len(chain):
+        while currentBlockIndex < len(chain):
             currentBlock=chain[currentBlockIndex]
             
-            if block['previousHash'] != self.hash(previousBlock):
+            if currentBlock['previousHash'] != self.hash(previousBlock):
                 return False
             
             #2nd check: check if proof has 4 leading zeros
@@ -130,7 +130,7 @@ class Blockchain:
             
             #update previousBlock Variable and currentBlock Variable
             previousBlock=currentBlock
-            blockIndex+=1
+            currentBlockIndex+=1
             
         return True
             
