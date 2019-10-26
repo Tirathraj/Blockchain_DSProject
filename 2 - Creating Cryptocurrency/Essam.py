@@ -385,7 +385,7 @@ def addTransaction():
     index=blockchain.addTransaction(json['sender'], json['receiver'], json['amount'])
     
     #Return Response
-    response={'message': 'Transaction will be added to the next block mined with index {index}'}
+    response={'message':f'Transaction will be added to the next block mined with index {index}'}
     
     return jsonify(response), 201 #Created
 
