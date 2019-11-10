@@ -6152,12 +6152,12 @@
         }
       },
       "links": {},
-      "address": "0xEb10d5f2e257E65E62d91a8056c92ed8936237db",
-      "transactionHash": "0x8158fd97a0b489fac73563a0cc72c89b6c2e8bfcbbdfb9a3ebe724951b9ed1ab"
+      "address": "0xCdF8F70a1619Ce6f5fdd31b73B3E2A14f810caC7",
+      "transactionHash": "0xa2341bd9febb0436936497d40e27bd610111b209f23162f5dd0e5575a4763972"
     }
   },
   "schemaVersion": "3.0.18",
-  "updatedAt": "2019-11-10T08:26:29.494Z",
+  "updatedAt": "2019-11-10T19:02:14.029Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
