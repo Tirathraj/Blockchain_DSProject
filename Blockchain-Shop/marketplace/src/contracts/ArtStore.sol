@@ -1,8 +1,8 @@
-pragma solidity ^0.5.12;
+pragma solidity >=0.5.8;
 
 /**
-This is a smart contract for storing pictures, their prices, their buyers and sellers, 
-as well as their descriptions.
+This is a smart contract for storing pictures, their prices,
+their buyers and sellers,as well as their descriptions.
  */
 contract ArtStore{
     string public itemName;
@@ -29,9 +29,9 @@ contract ArtStore{
      */
     function addItem(string memory _itemName, uint _itemPrice, string memory _itemDescription) public{
         //The name should be at least 1 byte
-        require(bytes(_itemName).length > 0);
+        require(bytes(_itemName).length > 0,"The name should be at least 1 byte.");
         //Item price should be greater than zero
-        require(_itemPrice > 0);
+        require(_itemPrice > 0,"Item price should be greater than zero");
         //This is for counting the item
         itemCount++;
         //Adding the item
@@ -55,14 +55,26 @@ contract ArtStore{
     function itemPurchase(uint _itemId) public payable{
         Item memory _item = items[_itemId];
         address payable _seller = _item.owner;
-        require(_item.itemId > 0 && _item.itemId <= itemCount);
-        require(msg.value >= _item.itemPrice);
-        require(!_item.purchased);
-        require(_seller != msg.sender);
+        require(_item.itemId > 0 && _item.itemId <= itemCount, "illigal index.");
+        require(msg.value >= _item.itemPrice, "value must be greater than itemprice.");
+        require(!_item.purchased,"Sitem is already purchased.");
+        require(_seller != msg.sender,"ownership is invalid.");
         _item.owner = msg.sender;
         _item.purchased = true;
         items[_itemId] = _item;
         address(_seller).transfer(msg.value);
         emit ItemPurchased(itemCount, _item.itemName, _item.itemPrice, _item.itemDescription, msg.sender, true);
     }
+
+    event ItemPurchased(
+        uint itemId,
+        string itemName,
+        uint itemPrice,
+        string itemDescription,
+        address payable owner,
+        bool purchased
+    );
+
+
+
 }
