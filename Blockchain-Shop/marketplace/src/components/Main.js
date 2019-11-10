@@ -60,14 +60,14 @@ class Main extends Component{
                                     <th scope="row">{item.itemId.toString()}</th>
                                     <td>{item.itemName}</td>
                                     <td>{window.web3.utils.fromWei(item.itemPrice.toString(), 'Ether')} Eth</td>
+                                    <td>{item.itemDescription}</td>
                                     <td>{item.owner}</td>
                                     <td>{!item.purchased
                                         ? <button
                                             name={item.itemId}
                                             value={item.itemPrice} 
-                                            desc={item.itemDescription}
                                             onClick={(event)=>{
-                                                this.props.itemPurchase(event.target.name, event.target.value, event.target.desc)
+                                                this.props.itemPurchase(event.target.name, event.target.value)
                                             }}
                                             >
                                             Buy

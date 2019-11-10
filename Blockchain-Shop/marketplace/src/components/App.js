@@ -94,7 +94,7 @@ class App extends Component {
           : <Main
             items = {this.state.items} 
             addItem={this.addItem}
-            itemPurcahse={this.itemPurchase}/>
+            itemPurchase={this.itemPurchase}/>
         }
       </main>
         </div>
