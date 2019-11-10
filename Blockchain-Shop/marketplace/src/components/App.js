@@ -46,6 +46,8 @@ class App extends Component {
           items: [...this.state.items, item]
         })
       }
+      this.setState({ processing: false })
+      console.log(this.state.items)
     }
     else{
       window.alert('ArtStore contract not connected to network.')

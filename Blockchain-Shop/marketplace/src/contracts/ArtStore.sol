@@ -48,7 +48,7 @@ contract ArtStore{
         string itemName,
         uint itemPrice,
         string itemDescription,
-        address owner,
+        address payable owner,
         bool purchased
     );
 

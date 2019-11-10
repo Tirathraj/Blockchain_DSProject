@@ -57,7 +57,7 @@ class Main extends Component{
                         {this.props.items.map((item, key) => {
                             return(
                                 <tr key={key}>
-                                    <th scope="row">{item.id.toString()}</th>
+                                    <th scope="row">{item.itemId.toString()}</th>
                                     <td>{item.itemName}</td>
                                     <td>{window.web3.utils.fromWei(item.itemPrice.toString(), 'Ether')} Eth</td>
                                     <td>{item.owner}</td>
@@ -81,7 +81,7 @@ class Main extends Component{
                     </tbody>
                 </table>
             </div>
-        )
+        );
     }
 }
 export default Main;
