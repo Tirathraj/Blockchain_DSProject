@@ -54,20 +54,30 @@ class Main extends Component{
                         </tr>
                     </thead>
                     <tbody id="itemList">
-                        <tr>
-                            <th scope="row"></th>
-                            <td>Mona Lisa</td>
-                            <td>1 Eth</td>
-                            <td>Masterpiece by Leonardo Da Vinci 
-                                ams,ansmaasnkanskasasnamsnmansmasnamsn
-                                ansmaasnkanskasasnamsnmansmasnamsnasnmansmamnbmnbs
-                                dsmmndmsnd,snd
-                                sdnsmndmsdn
-                                nadbanbd
-                            </td>
-                            <td>Owner</td>
-                            <td><button className="buyButton">Buy</button></td>
-                        </tr>
+                        {this.props.items.map((item, key) => {
+                            return(
+                                <tr key={key}>
+                                    <th scope="row">{item.id.toString()}</th>
+                                    <td>{item.itemName}</td>
+                                    <td>{window.web3.utils.fromWei(item.itemPrice.toString(), 'Ether')} Eth</td>
+                                    <td>{item.owner}</td>
+                                    <td>{!item.purchased
+                                        ? <button
+                                            name={item.itemId}
+                                            value={item.itemPrice} 
+                                            desc={item.itemDescription}
+                                            onClick={(event)=>{
+                                                this.props.itemPurchase(event.target.name, event.target.value, event.target.desc)
+                                            }}
+                                            >
+                                            Buy
+                                            </button>
+                                            : null
+                                        }</td>
+                                </tr>
+                            )
+                        })
+                    }
                     </tbody>
                 </table>
             </div>

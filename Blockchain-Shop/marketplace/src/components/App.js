@@ -39,6 +39,13 @@ class App extends Component {
       console.log(itemCount.toString())
       this.setState({ processing: false })
       console.log(artstore)
+      this.setState({ itemCount })
+      for (var i = 1; i < itemCount; i++){
+        const item = await artstore.methods.items(i).call()
+        this.setState({
+          items: [...this.state.items, item]
+        })
+      }
     }
     else{
       window.alert('ArtStore contract not connected to network.')
@@ -53,6 +60,14 @@ class App extends Component {
     })
   }
 
+  itemPurchase(itemId, itemPrice){
+    this.setState({ processing: true })
+    this.state.artstore.methods.itemPurchase(itemId).send({ from: this.state.account, value: itemPrice })
+    .once('receipt', (receipt) => {
+      this.setState({ processing: false })
+    })
+  }
+
   constructor(props){
     super(props)
     this.state = {
@@ -62,6 +77,7 @@ class App extends Component {
       processing: true
     }
     this.addItem = this.addItem.bind(this)
+    this.itemPurchase = this.itemPurchase.bind(this)
   }
   
   render() {
@@ -73,7 +89,10 @@ class App extends Component {
         <main role="main" className="col-lg-12 d-flex">
         { this.state.processing
           ? <div id="loader" className="text-center"><p className="text-center">Processing...</p></div>
-          : <Main addItem={this.addItem}/>
+          : <Main
+            items = {this.state.items} 
+            addItem={this.addItem}
+            itemPurcahse={this.itemPurchase}/>
         }
       </main>
         </div>
