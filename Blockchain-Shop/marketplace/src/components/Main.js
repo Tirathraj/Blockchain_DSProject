@@ -2,17 +2,45 @@ import React, {Component} from 'react';
 import ipfs from './ipfs';
 
 class Main extends Component{
-    async
+    
+    constructor(props){
+        super(props)
+        this.state  = {
+            buffer: null,
+            ipfsHash: ''
+        }
+        this.captureFile = this.captureFile.bind(this)
+    }
+    
+    captureFile(event){
+        console.log('capture file...')
+        const file = event.target.files[0]
+        const reader = new window.FileReader()
+        reader.readAsArrayBuffer(file)
+        reader.onloadend = () =>{
+            this.setState({buffer : Buffer(reader.result)})
+            console.log('buffer', this.state.buffer)
+        }
+    }
+
     render(){
         return(
             <div id="content">
                 <form onSubmit={(event)=> {
                     event.preventDefault()
-                    const name = this.itemName.value
-                    const price = window.web3.utils.toWei(this.itemPrice.value.toString(), 'Ether')
-                    const desc = this.itemDescription.value
-                    const stockCount = this.stockCount.value
-                    this.props.addItem(name, price, desc, stockCount)
+                    console.log('on submit...')
+                    ipfs.files.add(this.state.buffer, (error, result) => {
+                        if(error){
+                            console.error(error)
+                            return
+                        }
+                        this.setState({ ipfsHash: result[0].hash })
+                        console.log('ipfshash ', this.state.ipfsHash)
+                        const name = this.itemName.value
+                        const price = window.web3.utils.toWei(this.itemPrice.value.toString(), 'Ether')
+                        const desc = this.itemDescription.value
+                        this.props.addItem(name, price, desc, this.state.ipfsHash)
+                    })
                 }}>
                 <div className="form-group mr-md-3">
                     <input
@@ -42,12 +70,7 @@ class Main extends Component{
                         required/>
                  </div>
                  <div className="form-group mr-md-3">
-                 <input
-                        id="ipfsHash"
-                        type="text"
-                        className="form-control"
-                        placeholder="Item Description"
-                        required/>
+                 <input type='file' onChange={this.captureFile}/>
                  </div>
                  <button type="submit" className="btn btn-primary">Add Item</button>
                 </form>
@@ -76,7 +99,7 @@ class Main extends Component{
                                     <td>{item.owner}</td>
                                     <td>{item.ipfsHash}</td>
                                     <td></td>
-                                    <td>{item.stockCount>0
+                                    <td>{item.purchased
                                         ? <button
                                             name={item.itemId}
                                             value={item.itemPrice} 

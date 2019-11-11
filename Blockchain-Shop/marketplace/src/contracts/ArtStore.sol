@@ -9,8 +9,21 @@ contract ArtStore{
     uint public itemCount = 0;
     mapping(uint => Item) public items;
 
+    //For storing data
+    string ipfsHash;
+
+
     constructor() public{
         itemName = "Market";
+    }
+
+    //--------------------Storage functions----------------------//
+    function set(string memory x) public{
+        ipfsHash = x;
+    } 
+
+    function get() public view returns(string memory){
+        return ipfsHash;
     }
 
     //The data structure of the item
