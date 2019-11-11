@@ -84,7 +84,6 @@ class Main extends Component{
                             <th scope="col">Description</th>
                             <th scope="col">Owner</th>
                             <th scope="col">Image Hash</th>
-                            <th scope="col">Status</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -97,9 +96,9 @@ class Main extends Component{
                                     <td>{window.web3.utils.fromWei(item.itemPrice.toString(), 'Ether')} Eth</td>
                                     <td>{item.itemDescription}</td>
                                     <td>{item.owner}</td>
-                                    <td>{item.ipfsHash}</td>
+                                    <td><img src={`https://ipfs.io/ipfs/${item.ipfsHash}`} width="64" height="64" alt=""/></td>
                                     <td></td>
-                                    <td>{item.purchased
+                                    <td>{!item.purchased
                                         ? <button
                                             name={item.itemId}
                                             value={item.itemPrice} 
