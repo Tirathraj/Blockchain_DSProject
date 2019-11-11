@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import ipfs from './ipfs';
 
 class Main extends Component{
-
+    async
     render(){
         return(
             <div id="content">
@@ -10,7 +11,8 @@ class Main extends Component{
                     const name = this.itemName.value
                     const price = window.web3.utils.toWei(this.itemPrice.value.toString(), 'Ether')
                     const desc = this.itemDescription.value
-                    this.props.addItem(name, price, desc)
+                    const stockCount = this.stockCount.value
+                    this.props.addItem(name, price, desc, stockCount)
                 }}>
                 <div className="form-group mr-md-3">
                     <input
@@ -39,17 +41,27 @@ class Main extends Component{
                         placeholder="Item Description"
                         required/>
                  </div>
+                 <div className="form-group mr-md-3">
+                 <input
+                        id="ipfsHash"
+                        type="text"
+                        className="form-control"
+                        placeholder="Item Description"
+                        required/>
+                 </div>
                  <button type="submit" className="btn btn-primary">Add Item</button>
                 </form>
                 <p></p>
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">Id</th>
                             <th scope="col">Name</th>
                             <th scope="col">Price</th>
                             <th scope="col">Description</th>
                             <th scope="col">Owner</th>
+                            <th scope="col">Image Hash</th>
+                            <th scope="col">Status</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -62,7 +74,9 @@ class Main extends Component{
                                     <td>{window.web3.utils.fromWei(item.itemPrice.toString(), 'Ether')} Eth</td>
                                     <td>{item.itemDescription}</td>
                                     <td>{item.owner}</td>
-                                    <td>{!item.purchased
+                                    <td>{item.ipfsHash}</td>
+                                    <td></td>
+                                    <td>{item.stockCount>0
                                         ? <button
                                             name={item.itemId}
                                             value={item.itemPrice} 

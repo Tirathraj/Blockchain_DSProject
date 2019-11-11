@@ -4,6 +4,7 @@ import Web3 from 'web3';
 import Navbar from './Navbar';
 import ArtStore from '../abis/ArtStore.json';
 import Main from './Main';
+import ipfs from './ipfs';
 import './App.css';
 
 class App extends Component {
@@ -54,9 +55,9 @@ class App extends Component {
     }
   }
 
-  addItem(itemName, itemPrice, itemDescription){
+  addItem(itemName, itemPrice, itemDescription, ipfsHash){
     this.setState({ processing: true })
-    this.state.artstore.methods.addItem(itemName, itemPrice, itemDescription).send({ from: this.state.account })
+    this.state.artstore.methods.addItem(itemName, itemPrice, itemDescription, ipfsHash).send({ from: this.state.account })
     .once('receipt', (receipt) => {
       this.setState({ processing: false })
     })
