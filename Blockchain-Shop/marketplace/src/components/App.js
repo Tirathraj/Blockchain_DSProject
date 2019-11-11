@@ -77,6 +77,7 @@ class App extends Component {
       account: '',
       itemCount: 0,
       items: [],
+      attempt: 0,
       processing: true
     }
     this.addItem = this.addItem.bind(this)

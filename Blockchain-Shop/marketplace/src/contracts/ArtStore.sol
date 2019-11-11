@@ -8,6 +8,8 @@ contract ArtStore{
     string public itemName;
     uint public itemCount = 0;
     mapping(uint => Item) public items;
+    address seller;
+    uint attempt = 0;
 
     //For storing data
     string ipfsHash;
@@ -15,6 +17,7 @@ contract ArtStore{
 
     constructor() public{
         itemName = "Market";
+        seller = msg.sender;
     }
 
     //--------------------Storage functions----------------------//
@@ -35,6 +38,7 @@ contract ArtStore{
         string ipfsHash; //The IPFS Hash
         address payable owner; //The owner of the item
         bool purchased; //Whether or not the item is purchased
+        uint attempt; //Number of attempted purchases
         //string imageHash; //The hash of the image in the IPFS
     }
 
@@ -52,10 +56,11 @@ contract ArtStore{
     
         //This is for counting the item
         itemCount++;
+        //This is for initializing number of purchase attempts
         //Adding the item
-        items[itemCount] = Item(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false);
+        items[itemCount] = Item(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false, 0);
         //Triggering an event on item addition
-        emit ItemAdded(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false);
+        emit ItemAdded(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false, 0);
     }
 
     /**
@@ -68,11 +73,13 @@ contract ArtStore{
         string itemDescription,
         string ipfsHash,
         address payable owner,
-        bool purchased
+        bool purchased,
+        uint attempt
     );
 
     function itemPurchase(uint _itemId) public payable{
         Item memory _item = items[_itemId];
+        attempt++;
         address payable _seller = _item.owner;
         require(_item.itemId > 0 && _item.itemId <= itemCount, "illigal index.");
         require(msg.value >= _item.itemPrice, "value must be greater than itemprice.");
@@ -82,7 +89,7 @@ contract ArtStore{
         _item.purchased = true;
         items[_itemId] = _item;
         address(_seller).transfer(msg.value);
-        emit ItemPurchased(itemCount, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, msg.sender, true);
+        emit ItemPurchased(itemCount, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, msg.sender, true, _item.attempt);
     }
 
     event ItemPurchased(
@@ -92,7 +99,8 @@ contract ArtStore{
         string itemDescription,
         string ipfsHash,
         address payable owner,
-        bool purchased
+        bool purchased,
+        uint attempt
     );
 
 
