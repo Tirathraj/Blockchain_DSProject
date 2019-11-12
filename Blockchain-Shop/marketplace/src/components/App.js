@@ -41,7 +41,7 @@ class App extends Component {
       this.setState({ processing: false })
       console.log(artstore)
       this.setState({ itemCount })
-      for (var i = 1; i < itemCount; i++){
+      for (var i = 1; i <= itemCount; i++){
         const item = await artstore.methods.items(i).call()
         this.setState({
           items: [...this.state.items, item]
