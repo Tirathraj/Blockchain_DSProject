@@ -48,7 +48,7 @@ class Main extends Component{
                         type="text"
                         ref={(input) => { this.itemName = input }}
                         className="form-control"
-                        placeholder="Item Name"
+                        placeholder="Property Name"
                         required/>
                  </div>
                  <div className="form-group mr-md-3">
@@ -57,7 +57,7 @@ class Main extends Component{
                         type="text"
                         ref={(input) => { this.itemPrice = input }}
                         className="form-control"
-                        placeholder="Item Price"
+                        placeholder="Price"
                         required/>
                  </div>
                  <div className="form-group mr-md-3">
@@ -66,7 +66,7 @@ class Main extends Component{
                         type="text"
                         ref={(input) => { this.itemDescription = input }}
                         className="form-control"
-                        placeholder="Item Description"
+                        placeholder="Description"
                         required/>
                  </div>
                  <div className="form-group mr-md-3">
@@ -77,27 +77,28 @@ class Main extends Component{
                 <p></p>
                 <table className="table">
                     <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Image Hash</th>
-                            <th scope="col"></th>
-                        </tr>
                     </thead>
                     <tbody id="itemList">
                         {this.props.items.map((item, key) => {
                             return(
                                 <tr key={key}>
-                                    <th scope="row">{item.itemId.toString()}</th>
-                                    <td>{item.itemName}</td>
-                                    <td>{window.web3.utils.fromWei(item.itemPrice.toString(), 'Ether')} Eth</td>
-                                    <td>{item.itemDescription}</td>
-                                    <td>{item.owner}</td>
-                                    <td><img src={`https://ipfs.io/ipfs/${item.ipfsHash}`} width="64" height="64" alt=""/></td>
-                                    <td></td>
+                                    <td><b>{item.itemId.toString()}</b></td>
+                                    <td><img src={`https://ipfs.io/ipfs/${item.ipfsHash}`} width="384" height="auto" alt=""/></td>
+                                    <td>
+                                    <tr scope="row">
+                                    <td><b>Property Name</b></td><td>{item.itemName}</td>
+                                    </tr>
+                                    <tr scope="row">
+                                    <td><b>Description</b></td><td>{item.itemDescription}</td>
+                                    </tr>
+                                    <tr scope="row">
+                                    <td><b>Price</b></td><td>{window.web3.utils.fromWei(item.itemPrice.toString(), 'Ether')} Eth</td>
+                                    </tr>
+                                    <tr scope="row">
+                                    <td><b>Owner</b></td><td>{item.owner}</td>
+                                    </tr>
+                                    <tr scope="row">
+                                    <td><b>Status</b></td>
                                     <td>{!item.purchased
                                         ? <button
                                             name={item.itemId}
@@ -110,6 +111,8 @@ class Main extends Component{
                                             </button>
                                             : null
                                         }</td>
+                                    </tr>
+                                    </td>
                                 </tr>
                             )
                         })
