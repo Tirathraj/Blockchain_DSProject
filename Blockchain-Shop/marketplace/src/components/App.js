@@ -71,6 +71,11 @@ class App extends Component {
     })
   }
 
+  getSender(){
+    console.log(this.state.account)
+    return this.state.account
+  }
+
   constructor(props){
     super(props)
     this.state = {
@@ -81,6 +86,7 @@ class App extends Component {
     }
     this.addItem = this.addItem.bind(this)
     this.itemPurchase = this.itemPurchase.bind(this)
+    this.getSender = this.getSender.bind(this)
   }
   
   render() {
@@ -95,7 +101,8 @@ class App extends Component {
           : <Main
             items = {this.state.items} 
             addItem={this.addItem}
-            itemPurchase={this.itemPurchase}/>
+            itemPurchase={this.itemPurchase}
+            getSender={this.getSender}/>
         }
       </main>
         </div>

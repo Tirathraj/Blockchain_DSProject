@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ipfs from './ipfs';
+import ArtStore from '../abis/ArtStore.json';
 
 class Main extends Component{
     
@@ -95,21 +96,22 @@ class Main extends Component{
                                     <td><b>Price</b></td><td>{window.web3.utils.fromWei(item.itemPrice.toString(), 'Ether')} Eth</td>
                                     </tr>
                                     <tr scope="row">
-                                    <td><b>Owner</b></td><td>{item.owner}</td>
+                                    <td><b>Owner</b></td><td>{item.owner.toString()}</td>
                                     </tr>
                                     <tr scope="row">
                                     <td><b>Status</b></td>
-                                    <td>{!item.purchased
+                                    <td>{(item.owner.toString()!==this.props.getSender().toString())
+                                       
                                         ? <button
-                                            name={item.itemId}
-                                            value={item.itemPrice} 
-                                            onClick={(event)=>{
-                                                this.props.itemPurchase(event.target.name, event.target.value)
-                                            }}
-                                            >
-                                            Buy
-                                            </button>
-                                            : null
+                                        name={item.itemId}
+                                        value={item.itemPrice} 
+                                        onClick={(event)=>{
+                                            this.props.itemPurchase(event.target.name, event.target.value)
+                                        }}
+                                        >
+                                        Buy
+                                        </button>
+                                            : 'You are the owner of this property'
                                         }</td>
                                     </tr>
                                     </td>

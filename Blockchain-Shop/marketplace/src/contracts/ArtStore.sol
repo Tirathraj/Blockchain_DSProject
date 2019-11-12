@@ -95,6 +95,4 @@ contract ArtStore{
         bool purchased
     );
 
-
-
 }
