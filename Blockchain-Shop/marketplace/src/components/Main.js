@@ -83,7 +83,6 @@ class Main extends Component{
                         {this.props.items.map((item, key) => {
                             return(
                                 <tr key={key}>
-                                    <td><b>{item.itemId.toString()}</b></td>
                                     <td><img src={`https://ipfs.io/ipfs/${item.ipfsHash}`} width="384" height="auto" alt=""/></td>
                                     <td>
                                     <tr scope="row">
