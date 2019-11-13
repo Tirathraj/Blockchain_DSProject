@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import logo from '../logo.png';
 import Web3 from 'web3';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import ArtStore from '../abis/ArtStore.json';
 import Main from './Main';
+import ipfs from './ipfs';
 import './App.css';
 
 class App extends Component {
@@ -40,7 +42,7 @@ class App extends Component {
       this.setState({ processing: false })
       console.log(artstore)
       this.setState({ itemCount })
-      for (var i = 1; i < itemCount; i++){
+      for (var i = 1; i <= itemCount; i++){
         const item = await artstore.methods.items(i).call()
         this.setState({
           items: [...this.state.items, item]
@@ -54,9 +56,9 @@ class App extends Component {
     }
   }
 
-  addItem(itemName, itemPrice, itemDescription){
+  addItem(itemName, itemPrice, itemDescription, ipfsHash){
     this.setState({ processing: true })
-    this.state.artstore.methods.addItem(itemName, itemPrice, itemDescription).send({ from: this.state.account })
+    this.state.artstore.methods.addItem(itemName, itemPrice, itemDescription, ipfsHash).send({ from: this.state.account })
     .once('receipt', (receipt) => {
       this.setState({ processing: false })
     })
@@ -70,6 +72,11 @@ class App extends Component {
     })
   }
 
+  getSender(){
+    console.log(this.state.account)
+    return this.state.account
+  }
+
   constructor(props){
     super(props)
     this.state = {
@@ -80,6 +87,7 @@ class App extends Component {
     }
     this.addItem = this.addItem.bind(this)
     this.itemPurchase = this.itemPurchase.bind(this)
+    this.getSender = this.getSender.bind(this)
   }
   
   render() {
@@ -94,11 +102,13 @@ class App extends Component {
           : <Main
             items = {this.state.items} 
             addItem={this.addItem}
-            itemPurchase={this.itemPurchase}/>
+            itemPurchase={this.itemPurchase}
+            getSender={this.getSender}/>
         }
       </main>
         </div>
       </div>
+      <Footer/>
       </div>
     );
   }

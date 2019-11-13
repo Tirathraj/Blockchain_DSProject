@@ -1,6 +1,5 @@
 {
-  "short_name": "Starter Kit",
-  "name": "Dapp University Starter Kit",
+  "name": "Simulated Property Ownership Based on Blockchain",
   "icons": [
     {
       "src": "favicon.ico",
