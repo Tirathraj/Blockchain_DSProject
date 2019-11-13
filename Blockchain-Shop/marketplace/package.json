@@ -1,4 +1,5 @@
 {
+  "homepage": "./",
   "name": "online-artshop",
   "version": "0.1.0",
   "description": "Pic Art Shop",
@@ -14,6 +15,7 @@
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "chai-bignumber": "3.0.0",
+    "dotenv": "^8.2.0",
     "ipfs-http-client": "^39.0.2",
     "react": "16.8.4",
     "react-bootstrap": "1.0.0-beta.5",

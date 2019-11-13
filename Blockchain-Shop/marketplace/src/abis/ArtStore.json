@@ -6206,6 +6206,113 @@
     "version": "0.5.12+commit.7709ece9.Emscripten.clang"
   },
   "networks": {
+    "3": {
+      "events": {
+        "0x50583bd744828d78f882ca4666d6e3723cab2ee7de793af01014cc51bc30db9d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "itemId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "itemName",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "itemPrice",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "itemDescription",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "ipfsHash",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "address payable",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "purchased",
+              "type": "bool"
+            }
+          ],
+          "name": "ItemAdded",
+          "type": "event",
+          "signature": "0x50583bd744828d78f882ca4666d6e3723cab2ee7de793af01014cc51bc30db9d"
+        },
+        "0xecc6fa1d58e5146cc1650f653ca1bbc6c97069aed5ae341dfaeef141de5f02b0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "itemId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "itemName",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "itemPrice",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "itemDescription",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "ipfsHash",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "address payable",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "purchased",
+              "type": "bool"
+            }
+          ],
+          "name": "ItemPurchased",
+          "type": "event",
+          "signature": "0xecc6fa1d58e5146cc1650f653ca1bbc6c97069aed5ae341dfaeef141de5f02b0"
+        }
+      },
+      "links": {},
+      "address": "0x9C85C8E7741b6F0830140b27e6C7820aa9ABF347",
+      "transactionHash": "0x55dca49587c67ef8f2f9999b786553ed8250d6194ea761499878d124f460cbcf"
+    },
     "5777": {
       "events": {
         "0x477de2031cd6275e1cbe1b6d25db9b0a72fa45a0b2071f0aa6c1403964f07cb3": {
@@ -6559,7 +6666,7 @@
     }
   },
   "schemaVersion": "3.0.18",
-  "updatedAt": "2019-11-12T23:53:40.663Z",
+  "updatedAt": "2019-11-13T03:30:57.913Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
