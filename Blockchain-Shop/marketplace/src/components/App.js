@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../logo.png';
 import Web3 from 'web3';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import ArtStore from '../abis/ArtStore.json';
 import Main from './Main';
 import ipfs from './ipfs';
@@ -107,6 +108,7 @@ class App extends Component {
       </main>
         </div>
       </div>
+      <Footer/>
       </div>
     );
   }
