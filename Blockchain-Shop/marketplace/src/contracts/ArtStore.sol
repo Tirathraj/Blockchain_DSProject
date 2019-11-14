@@ -22,7 +22,8 @@ contract ArtStore{
         string ipfsHash; //The IPFS Hash
         address payable owner; //The owner of the item
         bool purchased; //Whether or not the item is purchased
-        //string imageHash; //The hash of the image in the IPFS
+        address invader; //The user who attempts to tamper with the item
+        string notifMsg; //Check if a person tried to tamper with the item
     }
 
 
@@ -40,9 +41,9 @@ contract ArtStore{
         //This is for counting the item
         itemCount++;
         //Adding the item
-        items[itemCount] = Item(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false);
+        items[itemCount] = Item(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false, address(0), "");
         //Triggering an event on item addition
-        emit ItemAdded(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false);
+        emit ItemAdded(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false, address(0), "");
     }
 
     /**
@@ -55,7 +56,9 @@ contract ArtStore{
         string itemDescription,
         string ipfsHash,
         address payable owner,
-        bool purchased
+        bool purchased,
+        address invader,
+        string notifMsg
     );
 
     function itemPurchase(uint _itemId) public payable{
@@ -69,7 +72,7 @@ contract ArtStore{
         _item.purchased = true;
         items[_itemId] = _item;
         address(_seller).transfer(msg.value);
-        emit ItemPurchased(itemCount, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, msg.sender, true);
+        emit ItemPurchased(itemCount, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, msg.sender, true, address(0), "");
     }
 
     event ItemPurchased(
@@ -79,7 +82,44 @@ contract ArtStore{
         string itemDescription,
         string ipfsHash,
         address payable owner,
-        bool purchased
+        bool purchased,
+        address invader,
+        string notifMsg
     );
 
+    /**
+    This is the function to edit an item in blockchain.
+     */
+    function editItemCheck(uint _itemId) public{
+        Item memory _item = items[_itemId];
+        address payable _seller = _item.owner;
+        //Validating the sender
+        if(_seller != msg.sender){
+            _item.invader = msg.sender;
+            _item.notifMsg = " attempted to tamper with the price";
+        }
+        else{
+            _item.invader = address(0);
+            _item.notifMsg="Owner updated the price";
+        }
+        //Updating the item
+        items[_itemId] = Item(_item.itemId, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, _item.owner, false, _item.invader, _item.notifMsg);
+        //Triggering an event on item addition
+        emit ItemEdited(_item.itemId, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, _item.owner, false, _item.invader, _item.notifMsg);
+    }
+
+        /**
+    This event gives notification to the buyers that an item has been added to the blockchain
+     */
+    event ItemEdited(
+        uint itemId,
+        string itemName,
+        uint itemPrice,
+        string itemDescription,
+        string ipfsHash,
+        address payable owner,
+        bool purchased,
+        address invader,
+        string notifMsg
+    );
 }
