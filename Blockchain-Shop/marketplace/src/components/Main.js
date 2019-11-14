@@ -118,8 +118,10 @@ class Main extends Component{
                                         </button>
                                             : 'You are the owner of this property'
                                         }</td>
+                                    <td><button onClick={(event)=>{alert("Previous owners: \n"+item.buyers)}}>View Past Owners</button></td>
                                     </tr>
-                                    <tr>
+                                    <tr scope="row">
+                                    <td></td>
                                     <td>{(item.invader.toString()==="0x0000000000000000000000000000000000000000")
                                         ? <td>{item.notifMsg}</td>
                                     :<td>{item.invader}{item.notifMsg}</td>}</td>
