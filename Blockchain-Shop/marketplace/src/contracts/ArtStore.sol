@@ -23,6 +23,7 @@ contract ArtStore{
         address payable owner; //The owner of the item
         bool purchased; //Whether or not the item is purchased
         //string imageHash; //The hash of the image in the IPFS
+        string strDisplayMessage;
     }
 
 
@@ -40,7 +41,7 @@ contract ArtStore{
         //This is for counting the item
         itemCount++;
         //Adding the item
-        items[itemCount] = Item(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false);
+        items[itemCount] = Item(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false,"");
         //Triggering an event on item addition
         emit ItemAdded(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false);
     }
@@ -81,5 +82,29 @@ contract ArtStore{
         address payable owner,
         bool purchased
     );
+
+    function editProperty(uint _itemId) public payable{
+
+         Item memory _item = items[_itemId];
+
+        if(msg.sender!=_item.owner){
+            //string s=string(abi.encodePacked(addressToString(msg.sender), " tried to illegally modify"));
+            _//item.strDisplayMessage =string(abi.encodePacked(addressToString(msg.sender), " tried to illegally modify"));
+        }
+    }
+
+    function addressToString(address _addr) public pure returns(string memory s) {
+    bytes32 value = bytes32(uint256(_addr));
+    bytes memory alphabet = "0123456789abcdef";
+
+    bytes memory str = new bytes(51);
+    str[0] = '0';
+    str[1] = 'x';
+    for (uint i = 0; i < 20; i++) {
+        str[2+i*2] = alphabet[uint(value[i + 12] >> 4)];
+        str[3+i*2] = alphabet[uint(value[i + 12] & 0x0f)];
+    }
+    return string(str);
+}
 
 }
