@@ -123,8 +123,8 @@ class Main extends Component{
                                     <tr scope="row">
                                     <td></td>
                                     <td>{(item.invader.toString()==="0x0000000000000000000000000000000000000000")
-                                        ? <td>{item.notifMsg}</td>
-                                    :<td>{item.invader}{item.notifMsg}</td>}</td>
+                                        ? <td style={{color:'blue'}}>{item.notifMsg}</td>
+                                    :<td style={{color:'red'}}>{item.invader}{item.notifMsg}</td>}</td>
                                     </tr>
                                     </td>
                                 </tr>
