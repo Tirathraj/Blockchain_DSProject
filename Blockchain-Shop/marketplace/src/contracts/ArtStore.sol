@@ -1,8 +1,13 @@
 pragma solidity >=0.5.8;
 
 /**
-This is a smart contract for storing pictures, their prices,
-their buyers and sellers,as well as their descriptions.
+*This is a smart contract for storing pictures, their prices,
+*their buyers and sellers,as well as their descriptions.
+*The codes are based from the following
+*Title: How To Build A Blockchain App with Ethereum, Web3.js & Solidity Smart Contracts
+*Author: Gregory McCubbin
+*Date: 2019
+*Availability: https://www.dappuniversity.com/articles/how-to-build-a-blockchain-app
  */
 contract ArtStore{
     string public itemName;
@@ -73,6 +78,17 @@ contract ArtStore{
         _item.owner = msg.sender;
         _item.purchased = true;
         //This is for converting address to string
+        /**
+         *Title: Convert address to string
+         *Author: Anton Bukov, Aliaksandr Adzinets
+         *Date: 2018
+         *Availability: https://ethereum.stackexchange.com/questions/8346/convert-address-to-string/51484#51484
+         *Bukov, A. (2018). 
+         *Convert address to string.
+         *[online] Ethereum Stack Exchange. 
+         *Available at: https://ethereum.stackexchange.com/questions/8346/convert-address-to-string/51484#51484 
+         *[Accessed 14 Nov. 2019].
+         */
          bytes32 value = bytes32(uint256(_seller));
          bytes memory alphabet = "0123456789abcdef";
 
