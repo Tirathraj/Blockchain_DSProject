@@ -77,6 +77,14 @@ class App extends Component {
     return this.state.account
   }
 
+  editItemCheck(itemId){
+    this.setState({ processing: true })
+    this.state.artstore.methods.editItemCheck(itemId).send({ from: this.state.account })
+    .once('receipt', (receipt) => {
+      this.setState({ processing: false })
+    })
+  }
+
   constructor(props){
     super(props)
     this.state = {
@@ -88,6 +96,7 @@ class App extends Component {
     this.addItem = this.addItem.bind(this)
     this.itemPurchase = this.itemPurchase.bind(this)
     this.getSender = this.getSender.bind(this)
+    this.editItemCheck = this.editItemCheck.bind(this)
   }
   
   render() {
@@ -103,7 +112,8 @@ class App extends Component {
             items = {this.state.items} 
             addItem={this.addItem}
             itemPurchase={this.itemPurchase}
-            getSender={this.getSender}/>
+            getSender={this.getSender}
+            editItemCheck={this.editItemCheck}/>
         }
       </main>
         </div>

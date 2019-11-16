@@ -3,7 +3,7 @@ import ipfs from './ipfs';
 import ArtStore from '../abis/ArtStore.json';
 
 class Main extends Component{
-    
+
     constructor(props){
         super(props)
         this.state  = {
@@ -93,6 +93,12 @@ class Main extends Component{
                                     </tr>
                                     <tr scope="row">
                                     <td><b>Price</b></td><td>{window.web3.utils.fromWei(item.itemPrice.toString(), 'Ether')} Eth</td>
+                                    <td>
+                                    <td><button 
+                                        name={item.itemId}
+                                        onClick={(event)=>
+                                                this.props.editItemCheck(event.target.name)}>Edit</button></td>
+                                    </td>
                                     </tr>
                                     <tr scope="row">
                                     <td><b>Owner</b></td><td>{item.owner.toString()}</td>
@@ -112,6 +118,13 @@ class Main extends Component{
                                         </button>
                                             : 'You are the owner of this property'
                                         }</td>
+                                    <td><button onClick={(event)=>{alert("Previous owners: \n"+item.buyers)}}>View Past Owners</button></td>
+                                    </tr>
+                                    <tr scope="row">
+                                    <td></td>
+                                    <td>{(item.invader.toString()==="0x0000000000000000000000000000000000000000")
+                                        ? <td style={{color:'blue'}}>{item.notifMsg}</td>
+                                    :<td style={{color:'red'}}>{item.invader}{item.notifMsg}</td>}</td>
                                     </tr>
                                     </td>
                                 </tr>
