@@ -15,7 +15,7 @@ contract ArtStore{
     mapping(uint => Item) public items;
 
     constructor() public{
-        itemName = "Market";
+        itemName = "Property Store";
     }
 
     //The data structure of the item
@@ -26,7 +26,6 @@ contract ArtStore{
         string itemDescription; //Short description of the item
         string ipfsHash; //The IPFS Hash
         address payable owner; //The owner of the item
-        bool purchased; //Whether or not the item is purchased
         string buyers; //List of those who have bought this item
         address invader; //The user who attempts to tamper with the item
         string notifMsg; //Check if a person tried to tamper with the item
@@ -47,9 +46,9 @@ contract ArtStore{
         //This is for counting the item
         itemCount++;
         //Adding the item
-        items[itemCount] = Item(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false, "", address(0), '');
+        items[itemCount] = Item(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, "", address(0), '');
         //Triggering an event on item addition
-        emit ItemAdded(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, false, "", address(0), '');
+        emit ItemAdded(itemCount, _itemName, _itemPrice, _itemDescription, _ipfsHash, msg.sender, "", address(0), '');
     }
 
     /**
@@ -62,7 +61,6 @@ contract ArtStore{
         string itemDescription,
         string ipfsHash,
         address payable owner,
-        bool purchased,
         string buyers,
         address invader,
         string notifMsg
@@ -76,7 +74,6 @@ contract ArtStore{
         //require(!_item.purchased,"item is already purchased.");
         require(_seller != msg.sender,"ownership is invalid.");
         _item.owner = msg.sender;
-        _item.purchased = true;
         //This is for converting address to string
         /**
          *Title: Convert address to string
@@ -102,7 +99,7 @@ contract ArtStore{
         _item.buyers = string(abi.encodePacked(_item.buyers," ",string(str)));
         items[_itemId] = _item;
         address(_seller).transfer(msg.value);
-        emit ItemPurchased(itemCount, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, msg.sender, true, _item.buyers, address(0), "");
+        emit ItemPurchased(itemCount, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, msg.sender, _item.buyers, address(0), "");
     }
 
     event ItemPurchased(
@@ -112,7 +109,6 @@ contract ArtStore{
         string itemDescription,
         string ipfsHash,
         address payable owner,
-        bool purchased,
         string buyers,
         address invader,
         string notifMsg
@@ -134,9 +130,9 @@ contract ArtStore{
             _item.notifMsg="Owner updated the price";
         }
         //Updating the item
-        items[_itemId] = Item(_item.itemId, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, _item.owner, false,  _item.buyers, _item.invader, _item.notifMsg);
+        items[_itemId] = Item(_item.itemId, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, _item.owner, _item.buyers, _item.invader, _item.notifMsg);
         //Triggering an event on item addition
-        emit ItemEdited(_item.itemId, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, _item.owner, false,  _item.buyers, _item.invader, _item.notifMsg);
+        emit ItemEdited(_item.itemId, _item.itemName, _item.itemPrice, _item.itemDescription, _item.ipfsHash, _item.owner, _item.buyers, _item.invader, _item.notifMsg);
     }
 
         /**
@@ -149,7 +145,6 @@ contract ArtStore{
         string itemDescription,
         string ipfsHash,
         address payable owner,
-        bool purchased,
         string buyers,
         address invader,
         string notifMsg
